@@ -1,4 +1,4 @@
-package ru.alishev.springcourse.FirstRestApp.controllers;
+package ru.russkikh.springcourse.FirstRestApp.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

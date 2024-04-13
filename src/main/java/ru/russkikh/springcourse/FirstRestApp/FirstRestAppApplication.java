@@ -1,4 +1,4 @@
-package ru.alishev.springcourse.FirstRestApp;
+package ru.russkikh.springcourse.FirstRestApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
