@@ -16,9 +16,7 @@ public class Measurements {
     private int value;
 
     private boolean raining;
-
-
-
+    
     private Sensor sensor;
 
 
