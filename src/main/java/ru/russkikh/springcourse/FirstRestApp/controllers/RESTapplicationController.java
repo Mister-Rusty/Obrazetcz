@@ -11,7 +11,7 @@ public class RESTapplicationController {
 
     @GetMapping("/sayHello")
     public String sayHello() {
-         return "Hello world!";
+         return "Hello Dima!";
     }
 
 }
