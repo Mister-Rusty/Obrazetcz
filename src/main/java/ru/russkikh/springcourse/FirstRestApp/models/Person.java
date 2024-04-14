@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "Person")
 public class Person {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,9 @@ public class Person {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    private String role;
 
     // Конструктор по умолчанию нужен для Spring
     public Person() {
@@ -66,6 +70,14 @@ public class Person {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -75,4 +87,5 @@ public class Person {
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }
