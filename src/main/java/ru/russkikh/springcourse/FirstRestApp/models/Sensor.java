@@ -1,6 +1,8 @@
 package ru.russkikh.springcourse.FirstRestApp.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "Sensor")
@@ -12,15 +14,19 @@ public class Sensor {
     private int id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Название сенсора не должно быть пустым")
     private String name;
 
-    public Sensor() {
+    @OneToMany
+    private List<Measurements> measurementsList;
 
+    public Sensor() {
     }
 
-    public Sensor(int id, String name) {
+    public Sensor(int id, String name, List<Measurements> measurementsList) {
         this.id = id;
         this.name = name;
+        this.measurementsList = measurementsList;
     }
 
     public int getId() {
@@ -37,5 +43,13 @@ public class Sensor {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Measurements> getMeasurementsList() {
+        return measurementsList;
+    }
+
+    public void setMeasurementsList(List<Measurements> measurementsList) {
+        this.measurementsList = measurementsList;
     }
 }

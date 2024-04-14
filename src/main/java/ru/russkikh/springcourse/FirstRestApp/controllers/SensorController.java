@@ -2,22 +2,18 @@ package ru.russkikh.springcourse.FirstRestApp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.russkikh.springcourse.FirstRestApp.services.PeopleService;
+import ru.russkikh.springcourse.FirstRestApp.services.SensorService;
 
-import java.util.List;
 
-/**
- * @author Neil Alishev
- */
 @RestController // @Controller + @ResponseBody над каждым методом
 @RequestMapping("/people")
-public class PeopleController {
+public class SensorController {
 
-    private final PeopleService peopleService;
+    private final SensorService sensorService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
-        this.peopleService = peopleService;
+    public SensorController(SensorService sensorService) {
+        this.sensorService = sensorService;
     }
 
     /*@GetMapping()
