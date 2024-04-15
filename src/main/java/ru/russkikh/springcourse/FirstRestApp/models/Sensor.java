@@ -23,7 +23,7 @@ public class Sensor {
     public Sensor() {
     }
 
-    public Sensor(int id, String name, List<Measurements> measurementsList) {
+    public Sensor(String name) {
         this.id = id;
         this.name = name;
         this.measurementsList = measurementsList;
