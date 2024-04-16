@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.russkikh.springcourse.FirstRestApp.models.Sensor;
 import ru.russkikh.springcourse.FirstRestApp.repositories.SensorRepository;
+import ru.russkikh.springcourse.FirstRestApp.util.SensorNotFoundExeption;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,6 @@ public class SensorService {
 
     public Sensor findOne(int id) {
         Optional<Sensor> foundPerson = sensorRepository.findById(id);
-        return foundPerson.orElse(null);
+        return foundPerson.orElseThrow(SensorNotFoundExeption::new);
     }
 }

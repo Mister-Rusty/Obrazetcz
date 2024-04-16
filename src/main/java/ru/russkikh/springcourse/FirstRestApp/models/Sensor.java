@@ -17,16 +17,15 @@ public class Sensor {
     @NotEmpty(message = "Название сенсора не должно быть пустым")
     private String name;
 
-    @OneToMany
-    private List<Measurements> measurementsList;
+    @OneToMany(mappedBy = "sensor")
+    private List<Measurements> measurements;
 
     public Sensor() {
     }
 
-    public Sensor(String name) {
+    public Sensor(int id, String name) {
         this.id = id;
         this.name = name;
-        this.measurementsList = measurementsList;
     }
 
     public int getId() {
@@ -46,10 +45,10 @@ public class Sensor {
     }
 
     public List<Measurements> getMeasurementsList() {
-        return measurementsList;
+        return measurements;
     }
 
-    public void setMeasurementsList(List<Measurements> measurementsList) {
-        this.measurementsList = measurementsList;
+    public void setMeasurementsList(List<Measurements> measurements) {
+        this.measurements = measurements;
     }
 }
