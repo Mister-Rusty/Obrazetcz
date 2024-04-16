@@ -30,4 +30,9 @@ public class SensorService {
         Optional<Sensor> foundPerson = sensorRepository.findById(id);
         return foundPerson.orElseThrow(SensorNotFoundExeption::new);
     }
+
+    @Transactional
+    public void saveSensor(Sensor sensor) {
+        sensorRepository.save(sensor);
+    }
 }
