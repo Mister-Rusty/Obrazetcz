@@ -32,7 +32,7 @@ public class SensorService {
     }
 
     @Transactional
-    public void saveSensor(Sensor sensor) {
+    public void save(Sensor sensor) {
         sensorRepository.save(sensor);
     }
 }
