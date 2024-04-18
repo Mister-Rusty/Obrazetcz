@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Страница сенсора</title>
+</head>
+<body>
+<p th:text="${sensor.getName()}">VALUE</p>
+<hr>
+<form th:method="GET" th:action="@{/sensors/{id}/edit(id=${sensor.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+<br>
+<form th:method="DELETE" th:action="@{/sensors/{id}(id=${sensor.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>

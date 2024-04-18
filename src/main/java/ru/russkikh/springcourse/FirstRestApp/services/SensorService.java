@@ -27,12 +27,25 @@ public class SensorService {
     }
 
     public Sensor findOne(int id) {
-        Optional<Sensor> foundPerson = sensorRepository.findById(id);
-        return foundPerson.orElseThrow(SensorNotFoundExeption::new);
+        Optional<Sensor> foundSensor = sensorRepository.findById(id);
+        return foundSensor.orElseThrow(SensorNotFoundExeption::new);
     }
 
     @Transactional
     public void save(Sensor sensor) {
         sensorRepository.save(sensor);
+    }
+
+    @Transactional
+    public void update(int id, Sensor updatedSensor) {
+        Sensor sensorToBeUpdated = sensorRepository.findById(id).get();
+        updatedSensor.setId(id);
+        updatedSensor.setMeasurementsList(sensorToBeUpdated.getMeasurementsList()); // чтобы не терялась связь при обновлении
+        sensorRepository.save(updatedSensor);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        sensorRepository.deleteById(id);
     }
 }
