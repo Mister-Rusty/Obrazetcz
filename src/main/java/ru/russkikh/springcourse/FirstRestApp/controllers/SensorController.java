@@ -2,24 +2,15 @@ package ru.russkikh.springcourse.FirstRestApp.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.russkikh.springcourse.FirstRestApp.dto.SensorDTO;
 import ru.russkikh.springcourse.FirstRestApp.models.Sensor;
 import ru.russkikh.springcourse.FirstRestApp.services.SensorService;
-import ru.russkikh.springcourse.FirstRestApp.util.SensorErrorResponse;
-import ru.russkikh.springcourse.FirstRestApp.util.SensorNotCreatedExeption;
-import ru.russkikh.springcourse.FirstRestApp.util.SensorNotFoundExeption;
+
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 //@RestController // @Controller + @ResponseBody над каждым методом
 @Controller
@@ -96,9 +87,7 @@ public class SensorController {
     public List<SensorDTO> getSensors() {
         return sensorService.findAll().stream().map(this::convertToSensorDTO)
                 .collect(Collectors.toList()); // Jackson конвертирует эти объекты в JSON
-    }*/
-
-
+    }
 
     @PostMapping()
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
@@ -115,7 +104,6 @@ public class SensorController {
     sensorService.save(convertToSensor(sensorDTO));
     return ResponseEntity.ok(HttpStatus.OK);
     }
-
 
     @ExceptionHandler
     private ResponseEntity<SensorErrorResponse> handleExeption(SensorNotFoundExeption e) {
@@ -135,5 +123,5 @@ public class SensorController {
 
     private SensorDTO convertToSensorDTO(Sensor sensor) {
         return modelMapper.map(sensor,SensorDTO.class);
-    }
+    }*/
 }

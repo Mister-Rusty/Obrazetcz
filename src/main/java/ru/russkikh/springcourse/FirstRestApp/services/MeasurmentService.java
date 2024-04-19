@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.russkikh.springcourse.FirstRestApp.models.Measurements;
+import ru.russkikh.springcourse.FirstRestApp.models.Sensor;
 import ru.russkikh.springcourse.FirstRestApp.repositories.MeasurmentsRepository;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class MeasurmentService {
     public Measurements findOne(int id) {
         Optional<Measurements> foundMeasurments = measurmentsRepository.findById(id);
         return foundMeasurments.orElse(null);
+    }
+
+    @Transactional
+    public void save(Measurements measurements) {
+        measurmentsRepository.save(measurements);
     }
 
 }

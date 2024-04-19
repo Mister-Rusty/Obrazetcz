@@ -28,8 +28,9 @@ public class Measurements {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @NotEmpty
     @ManyToOne
-    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    @JoinColumn(name = "sensor_name", referencedColumnName = "name")
     private Sensor sensor;
 
 
@@ -37,11 +38,9 @@ public class Measurements {
     public Measurements() {
     }
 
-    public Measurements(int id, int value, boolean raining, Date createdAt, Sensor sensor) {
-        this.id = id;
+    public Measurements(int value, boolean raining, Sensor sensor) {
         this.value = value;
         this.raining = raining;
-        this.createdAt = createdAt;
         this.sensor = sensor;
     }
 

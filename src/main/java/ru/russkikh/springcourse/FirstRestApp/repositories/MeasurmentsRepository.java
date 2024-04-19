@@ -6,5 +6,4 @@ import ru.russkikh.springcourse.FirstRestApp.models.Measurements;
 
 @Repository
 public interface MeasurmentsRepository extends JpaRepository<Measurements, Integer> {
-
 }
