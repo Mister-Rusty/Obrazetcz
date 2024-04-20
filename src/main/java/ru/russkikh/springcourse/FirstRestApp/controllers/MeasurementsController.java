@@ -11,7 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.russkikh.springcourse.FirstRestApp.dto.MeasurmentDTO;
 import ru.russkikh.springcourse.FirstRestApp.models.Measurements;
-import ru.russkikh.springcourse.FirstRestApp.services.MeasurmentService;
+import ru.russkikh.springcourse.FirstRestApp.services.MeasurementService;
 import ru.russkikh.springcourse.FirstRestApp.util.MeasurmentErrorResponse;
 import ru.russkikh.springcourse.FirstRestApp.util.MeasurmentNotCreatedExeption;
 import ru.russkikh.springcourse.FirstRestApp.util.MeasurmentNotFoundExeption;
@@ -22,44 +22,40 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("/measurments")
-public class MeasurmentsController {
+@RequestMapping("/measurements")
+public class MeasurementsController {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    private MeasurmentService measurmentService;
+    private final MeasurementService measurementService;
 
     @Autowired
-    public MeasurmentsController(ModelMapper modelMapper, MeasurmentService measurmentService) {
+    public MeasurementsController(ModelMapper modelMapper, MeasurementService measurementService) {
         this.modelMapper = modelMapper;
-        this.measurmentService = measurmentService;
+        this.measurementService = measurementService;
     }
 
     @GetMapping()
+    @ResponseBody
     public List<MeasurmentDTO> getMeasurments() {
-        return measurmentService.findAll().stream().map(this::convertToMeasurmentsDTO)
+        return measurementService.findAll().stream().map(this::convertToMeasurmentsDTO)
                 .collect(Collectors.toList()); // Jackson конвертирует эти объекты в JSON
     }
 
     @GetMapping("/{id}")
     public MeasurmentDTO getMeasurment(@PathVariable("id") int id) {
-        return convertToMeasurmentsDTO(measurmentService.findOne(id));
+        return convertToMeasurmentsDTO(measurementService.findOne(id));
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid MeasurmentDTO measurmentDTO, BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid MeasurmentDTO measurmentDTO,
+                                             BindingResult bindingResult) {
+        Measurements measurementToAdd = convertToMeasurment(measurmentDTO);
         if (bindingResult.hasErrors()) {
-            StringBuilder errorMsg = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                errorMsg.append(error.getField())
-                        .append(" - ").append(error.getDefaultMessage())
-                        .append(";");
-            }
-            throw new MeasurmentNotCreatedExeption(errorMsg.toString());
+
         }
-        measurmentService.save(convertToMeasurment(measurmentDTO));
+        measurementService.addMeasurement(measurementToAdd);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

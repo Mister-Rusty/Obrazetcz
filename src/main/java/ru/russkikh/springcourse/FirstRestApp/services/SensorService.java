@@ -31,6 +31,10 @@ public class SensorService {
         return foundSensor.orElseThrow(SensorNotFoundExeption::new);
     }
 
+    public Optional<Sensor> findByName(String name) {
+        return sensorRepository.findByName(name);
+    }
+
     @Transactional
     public void save(Sensor sensor) {
         sensorRepository.save(sensor);
@@ -38,9 +42,7 @@ public class SensorService {
 
     @Transactional
     public void update(int id, Sensor updatedSensor) {
-        Sensor sensorToBeUpdated = sensorRepository.findById(id).get();
         updatedSensor.setId(id);
-        updatedSensor.setMeasurementsList(sensorToBeUpdated.getMeasurementsList()); // чтобы не терялась связь при обновлении
         sensorRepository.save(updatedSensor);
     }
 

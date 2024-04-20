@@ -4,29 +4,29 @@ package ru.russkikh.springcourse.FirstRestApp.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "Measurments")
+@Table(name = "Measurements")
 public class Measurements {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int Integer;
 
     @Column(name = "value")
     @NotEmpty
     @Size(min = -100, max = 100, message = "Вне диапазона температур")
-    private int value;
+    private Integer value;
 
     @Column(name="raining")
     @NotEmpty
-    private boolean raining;
+    private Boolean raining;
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @NotEmpty
     @ManyToOne
@@ -34,45 +34,35 @@ public class Measurements {
     private Sensor sensor;
 
 
-
-    public Measurements() {
+    public int getInteger() {
+        return Integer;
     }
 
-    public Measurements(int value, boolean raining, Sensor sensor) {
-        this.value = value;
-        this.raining = raining;
-        this.sensor = sensor;
+    public void setInteger(int integer) {
+        Integer = integer;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getValue() {
+    public java.lang.Integer getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(java.lang.Integer value) {
         this.value = value;
     }
 
-    public boolean isRaining() {
+    public Boolean getRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

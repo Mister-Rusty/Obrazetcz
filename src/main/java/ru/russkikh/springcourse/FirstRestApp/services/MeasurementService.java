@@ -4,21 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.russkikh.springcourse.FirstRestApp.models.Measurements;
-import ru.russkikh.springcourse.FirstRestApp.models.Sensor;
 import ru.russkikh.springcourse.FirstRestApp.repositories.MeasurmentsRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class MeasurmentService {
+public class MeasurementService {
 
     private final MeasurmentsRepository measurmentsRepository;
+    private final SensorService sensorService;
 
     @Autowired
-    public MeasurmentService(MeasurmentsRepository measurmentsRepository) {
+    public MeasurementService(MeasurmentsRepository measurmentsRepository, SensorService sensorService) {
         this.measurmentsRepository = measurmentsRepository;
+        this.sensorService = sensorService;
     }
 
     public List<Measurements> findAll() {
@@ -31,8 +33,15 @@ public class MeasurmentService {
     }
 
     @Transactional
-    public void save(Measurements measurements) {
-        measurmentsRepository.save(measurements);
+    public void addMeasurement(Measurements measurement) {
+        enrichMeasurement(measurement);
+        measurmentsRepository.save(measurement);
+    }
+
+    public void enrichMeasurement(Measurements measurement) {
+        // мы должны сами найти сенсор из БД по имени и вставить объект из Hibernate persistence context'а
+        measurement.setSensor(sensorService.findByName(measurement.getSensor().getName()).get());
+        measurement.setCreatedAt(LocalDateTime.now());
     }
 
 }
