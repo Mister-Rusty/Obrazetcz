@@ -1,8 +1,12 @@
 package ru.russkikh.springcourse.FirstRestApp.models;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,39 +18,40 @@ public class Measurements {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Integer;
+    private Integer id;
 
     @Column(name = "value")
-    @NotEmpty
-    @Size(min = -100, max = 100, message = "Вне диапазона температур")
-    private Integer value;
+    @NotNull
+    @Min(-100)
+    @Max(100)
+    private Double value;
 
     @Column(name="raining")
-    @NotEmpty
+    @NotNull
     private Boolean raining;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "sensor_name", referencedColumnName = "name")
+    @JoinColumn(name = "sensor", referencedColumnName = "name")
     private Sensor sensor;
 
 
-    public int getInteger() {
-        return Integer;
+    public Integer getId() {
+        return id;
     }
 
-    public void setInteger(int integer) {
-        Integer = integer;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public java.lang.Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(java.lang.Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

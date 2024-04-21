@@ -1,29 +1,32 @@
 package ru.russkikh.springcourse.FirstRestApp.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import ru.russkikh.springcourse.FirstRestApp.models.Sensor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
-public class MeasurmentDTO {
 
-    @NotEmpty
-    @Size(min = -100, max = 100, message = "Вне диапазона температур")
-    private Integer value;
+public class MeasurementDTO {
 
-    @NotEmpty
+    @NotNull
+    @Min(-100)
+    @Max(100)
+    private Double value;
+
+    @NotNull
     private Boolean raining;
 
-    @NotEmpty
+    @NotNull
     private Sensor sensor;
 
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

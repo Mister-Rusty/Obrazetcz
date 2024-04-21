@@ -1,8 +1,13 @@
 package ru.russkikh.springcourse.FirstRestApp.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,8 +21,9 @@ public class Sensor implements Serializable {
     private Integer id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Название сенсора не должно быть пустым")
-    @Size(min = 3,max = 30,message = "Имя сенсора должно содержать от 3 до 30 символов")
+    @NotNull
+    @Min(-100)
+    @Max(100)
     private String name;
 
 
